@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Harmony Map</title>
+<link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<div id="app">
+
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 24 24" style="color: var(--brass)" fill="none">
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.3"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor"/>
+      <line x1="12" y1="1" x2="12" y2="4.5" stroke="currentColor" stroke-width="1.3"/>
+      <line x1="12" y1="19.5" x2="12" y2="23" stroke="currentColor" stroke-width="1.3"/>
+      <line x1="1" y1="12" x2="4.5" y2="12" stroke="currentColor" stroke-width="1.3"/>
+      <line x1="19.5" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="1.3"/>
+    </svg>
+    <span class="brand-name">Harmony Map</span>
+  </div>
+
+  <div class="error-banner" id="errorBanner" style="display:none"></div>
+
+  <div class="gauge" id="gauge">
+    <div class="gauge-label"><span id="gaugeStepText"></span><span id="gaugePercentText" class="mono"></span></div>
+    <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div></div>
+  </div>
+
+  <!-- 1. LANDING -->
+  <section class="screen is-active" id="screen-landing">
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="kicker" id="landingKicker"></div>
+        <h1 class="title-xl" id="landingTitle">Harmony Map</h1>
+        <p class="subtitle" id="landingSubtitle"></p>
+
+        <div class="field">
+          <label id="landingNameLabel"></label>
+          <input type="text" id="nameInput" maxlength="60" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label id="landingLangLabel"></label>
+          <div class="lang-row" id="langRow">
+            <button class="lang-chip" data-lang="ru">Русский</button>
+            <button class="lang-chip" data-lang="kk">Қазақша</button>
+            <button class="lang-chip" data-lang="en">English</button>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="startBtn" disabled></button>
+        </div>
+      </div>
+
+      <div class="hero-face">
+        <svg viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg">
+          <line class="face-tick" x1="30" y1="60" x2="38" y2="60"/>
+          <line class="face-tick" x1="30" y1="100" x2="38" y2="100"/>
+          <line class="face-tick" x1="30" y1="140" x2="38" y2="140"/>
+          <line class="face-tick" x1="30" y1="180" x2="38" y2="180"/>
+          <line class="face-tick" x1="30" y1="220" x2="38" y2="220"/>
+          <line class="face-tick" x1="30" y1="260" x2="38" y2="260"/>
+          <line class="face-tick" x1="30" y1="300" x2="38" y2="300"/>
+          <line class="face-tick" x1="30" y1="340" x2="38" y2="340"/>
+          <line class="face-tick" x1="34" y1="60" x2="34" y2="340"/>
+
+          <g class="face-tick draw-sm">
+            <line x1="272" y1="140" x2="272" y2="220"/>
+            <line x1="266" y1="140" x2="278" y2="140"/>
+            <line x1="266" y1="220" x2="278" y2="220"/>
+          </g>
+
+          <path class="face-line draw" d="M160,60 C215,60 250,110 250,175 C250,250 205,340 160,360 C115,340 70,250 70,175 C70,110 105,60 160,60 Z"/>
+
+          <line class="face-guide draw-sm" x1="85" y1="140" x2="235" y2="140"/>
+          <line class="face-guide draw-sm" x1="85" y1="220" x2="235" y2="220"/>
+          <line class="face-guide draw-sm" x1="160" y1="60" x2="160" y2="360"/>
+
+          <g class="face-net draw-sm">
+            <line x1="75" y1="175" x2="120" y2="145"/>
+            <line x1="245" y1="175" x2="200" y2="145"/>
+            <line x1="120" y1="145" x2="118" y2="165"/>
+            <line x1="200" y1="145" x2="202" y2="165"/>
+            <line x1="118" y1="165" x2="160" y2="215"/>
+            <line x1="202" y1="165" x2="160" y2="215"/>
+            <line x1="160" y1="215" x2="135" y2="270"/>
+            <line x1="160" y1="215" x2="185" y2="270"/>
+            <line x1="135" y1="270" x2="160" y2="340"/>
+            <line x1="185" y1="270" x2="160" y2="340"/>
+          </g>
+
+          <g class="face-point">
+            <circle cx="75" cy="175" r="3"/>
+            <circle cx="245" cy="175" r="3"/>
+            <circle cx="120" cy="145" r="3"/>
+            <circle cx="200" cy="145" r="3"/>
+            <circle cx="118" cy="165" r="3"/>
+            <circle cx="202" cy="165" r="3"/>
+            <circle cx="160" cy="215" r="3.5"/>
+            <circle cx="135" cy="270" r="3"/>
+            <circle cx="185" cy="270" r="3"/>
+            <circle cx="160" cy="340" r="3"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. CONSENT -->
+  <section class="screen" id="screen-consent">
+    <h2 class="title-lg" id="consentTitle"></h2>
+    <p id="consentP1"></p>
+    <p id="consentP2"></p>
+    <div class="warn-box" id="consentP3"></div>
+    <ul class="consent-list" id="consentBullets"></ul>
+    <div class="checkbox-row">
+      <input type="checkbox" id="consentCheckbox" />
+      <label for="consentCheckbox" id="consentCheckboxLabel"></label>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="consentBackBtn"></button>
+      <button class="btn btn-primary" id="consentContinueBtn" disabled></button>
+    </div>
+  </section>
+
+  <!-- 3. MODE SELECT -->
+  <section class="screen" id="screen-mode">
+    <h2 class="title-lg" id="modeTitle"></h2>
+    <p id="modeSubtitle"></p>
+    <div class="option-grid">
+      <button class="option-card" id="modeWithCard" type="button">
+        <span class="tag">01 · +ФОТО</span>
+        <h3 id="modeWithTitle"></h3>
+        <p id="modeWithDesc"></p>
+      </button>
+      <button class="option-card" id="modeWithoutCard" type="button">
+        <span class="tag">02</span>
+        <h3 id="modeWithoutTitle"></h3>
+        <p id="modeWithoutDesc"></p>
+      </button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="modeBackBtn"></button>
+      <button class="btn btn-primary" id="modeContinueBtn" disabled></button>
+    </div>
+  </section>
+
+  <!-- 4. QUIZ -->
+  <section class="screen" id="screen-quiz">
+    <div class="section-label" id="quizSectionLabel"></div>
+    <div class="question-block">
+      <div class="question-index mono" id="quizIndex"></div>
+      <div class="question-text" id="quizQuestionText"></div>
+      <div class="scale-row" id="quizScaleRow"></div>
+      <div id="quizOpenWrap" style="display:none">
+        <div class="field" style="margin-bottom:0">
+          <textarea id="quizOpenInput" rows="4"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="quizBackBtn"></button>
+      <button class="btn btn-primary" id="quizNextBtn" disabled></button>
+    </div>
+  </section>
+
+  <!-- 5. PHOTO (физиогномика, по желанию) -->
+  <section class="screen" id="screen-photo">
+    <h2 class="title-lg" id="photoTitle"></h2>
+    <p id="photoDesc"></p>
+    <div class="photo-drop" id="photoDrop">
+      <input type="file" id="photoInput" accept="image/*" hidden />
+      <div id="photoDropInner">
+        <span id="photoUploadBtnLabel"></span>
+      </div>
+      <img id="photoPreview" class="photo-preview" style="display:none" alt="" />
+    </div>
+    <div class="privacy-note">🔒 <span id="photoPrivacyNote"></span></div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="photoSkipBtn"></button>
+      <button class="btn btn-primary" id="photoContinueBtn" disabled></button>
+    </div>
+  </section>
+
+  <!-- 6. ANALYZING -->
+  <section class="screen" id="screen-analyzing">
+    <div class="loading-wrap">
+      <div class="loading-ring"></div>
+      <h2 class="title-md" id="analyzingTitle"></h2>
+      <div class="loading-msg mono" id="analyzingMsg"></div>
+    </div>
+  </section>
+
+  <!-- 7. RESULTS -->
+  <section class="screen" id="screen-results">
+    <div id="pdfArea">
+      <h2 class="title-lg" id="resultsTitle"></h2>
+      <p id="resultsSubtitle"></p>
+
+      <div class="results-grid">
+        <div class="radar-card">
+          <h3 id="radarTitle"></h3>
+          <div id="radarTraits"></div>
+        </div>
+        <div class="radar-card">
+          <h3 id="careerRadarTitle"></h3>
+          <div id="radarCareer"></div>
+        </div>
+      </div>
+
+      <div class="compare-note" id="compareNote" style="display:none"></div>
+
+      <div class="compare-grid" id="compareGrid">
+        <div class="analysis-panel">
+          <div class="panel-head"><span class="dot-mark"></span><h3 id="personalityHeader"></h3></div>
+          <div class="analysis-body" id="personalityBody"></div>
+        </div>
+        <div class="analysis-panel physio" id="physioPanel" style="display:none">
+          <div class="panel-head"><span class="dot-mark"></span><h3 id="physioHeader"></h3></div>
+          <div class="analysis-body" id="physioBody"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-actions">
+      <button class="btn btn-primary" id="downloadPdfBtn"></button>
+      <button class="btn btn-ghost" id="chatCtaBtn"></button>
+      <button class="btn btn-ghost" id="restartBtn"></button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ЧАТ С ИИ -->
+<button class="chat-toggle is-hidden" id="chatToggle" aria-label="chat">💬</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <h4 id="chatTitle"></h4>
+    <button class="chat-close" id="chatCloseBtn">✕</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" />
+    <button class="chat-send" id="chatSendBtn">➤</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/questions.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/chat-widget.js"></script>
+</body>
+</html>
