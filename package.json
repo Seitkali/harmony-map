@@ -1,0 +1,19 @@
+{
+  "name": "harmony-map",
+  "version": "1.0.0",
+  "description": "Трёхъязычный тест на тип личности, профориентацию и (по желанию) физиогномику с ИИ-агентом в реальном времени",
+  "private": true,
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
